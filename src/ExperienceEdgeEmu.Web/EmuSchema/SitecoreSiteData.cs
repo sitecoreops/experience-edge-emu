@@ -31,11 +31,6 @@ public class SiteInfo
                 return new SiteDictionary();
             }
 
-            if (after != null)
-            {
-                throw new NotSupportedException("Dictionary paging not supported.");
-            }
-
             if (first != null)
             {
                 return new SiteDictionary
@@ -69,11 +64,6 @@ public class SiteInfo
             if (data == null || data.Routes == null)
             {
                 return new SiteRoutesResult();
-            }
-
-            if (after != null)
-            {
-                throw new NotSupportedException("Routes paging not supported.");
             }
 
             if (first != null)
