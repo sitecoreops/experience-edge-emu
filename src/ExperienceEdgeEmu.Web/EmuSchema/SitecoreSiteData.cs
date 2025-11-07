@@ -3,6 +3,8 @@ namespace ExperienceEdgeEmu.Web.EmuSchema;
 public record SitecoreSiteData(SiteInfoResult AllSiteInfo)
 {
     public SiteInfo? SiteInfo(string site) => AllSiteInfo.Results.FirstOrDefault(x => x.Name.Equals(site, StringComparison.OrdinalIgnoreCase));
+
+    public SiteInfo[] SiteInfoCollection() => AllSiteInfo.Results;
 }
 
 public record SiteInfoResult(int Total, SiteInfo[] Results);
