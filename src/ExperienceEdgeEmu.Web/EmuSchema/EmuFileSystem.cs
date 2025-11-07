@@ -124,7 +124,10 @@ public class EmuFileSystem
 
     public string GetMediaFilePath(string urlPath)
     {
-        var relativeMediaPath = urlPath.Replace("/-/media/", "").Replace('/', Path.DirectorySeparatorChar);
+        var relativeMediaPath = urlPath
+                                    .Replace("/-/media/", "")
+                                    .Replace("/-/jssmedia/", "")
+                                    .Replace('/', Path.DirectorySeparatorChar);
 
         return Path.Combine(_dataRootPath, "media", relativeMediaPath);
     }
