@@ -61,7 +61,7 @@ jobs:
           - os: windows-2025
             runtime: win-x64
             repo: ghcr.io/${{ github.repository_owner }}/eee-ltsc2025
-            base_image: "/p:ContainerBaseImage=mcr.microsoft.com/dotnet/aspnet:9.0-nanoserver-ltsc2025"
+            base_image: "/p:ContainerBaseImage=mcr.microsoft.com/dotnet/aspnet:10.0-nanoserver-ltsc2025"
 
     steps:
       - name: Checkout code
@@ -70,7 +70,7 @@ jobs:
       - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "9.0.x"
+          dotnet-version: "10.0.x"
           cache: true
           cache-dependency-path: "**/packages.lock.json"
 
