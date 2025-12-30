@@ -1,6 +1,6 @@
 services:
   eee:
-    image: sitecoreops/eee-ltsc2025:latest
+    image: ghcr.io/sitecoreops/eee
     isolation: process
     volumes:
       - .\src\ExperienceEdgeEmu.Web\data:C:/app/data

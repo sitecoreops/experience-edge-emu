@@ -93,9 +93,15 @@ or with persistence:
 docker run -v "./data/eee:/app/data" -e "EMU__MEDIAHOST=http://localhost:5710" -p 5710:8080 ghcr.io/sitecoreops/eee
 ```
 
+or with the skatepark dataset:
+
+```powershell
+docker run -e "EMU__MEDIAHOST=http://localhost:5710" -p 5710:8080 ghcr.io/sitecoreops/eee --dataset skatepark
+```
+
 or with SSL:
 
-1. Use [./compose.yml](./compose.yml) as reference, modify as needed, for example change image data volumes.
+1. Use [./compose.yml](./compose.yml) as reference, modify as needed, for example change image data volumes. Add `command: --dataset skatepark` to use the skatepark dataset.
 1. Then `docker compose up -d`.
 1. Make your machine trust the certificate, run `certutil -addstore -f "ROOT" ".\\docker\\caddy\\data\\caddy\\pki\\authorities\\local\\root.crt"`.
 
