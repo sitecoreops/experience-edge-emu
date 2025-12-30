@@ -56,6 +56,11 @@ public class ExperienceEdgeCrawlerService
 
     public async Task<CrawlResult> Crawl(IResolveFieldContext context)
     {
+        if (_emuFileSystem.IsDatasetDeployed())
+        {
+            throw new InvalidOperationException("Cannot crawl while using a dataset, please start app without dataset.");
+        }
+
         _itemsProcessed = 0;
         _sitesProcessed = 0;
 

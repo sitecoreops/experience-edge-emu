@@ -2,6 +2,15 @@ using ExperienceEdgeEmu.Web;
 using Serilog;
 using Serilog.Events;
 
+// handle arguments
+if (!EmuStartupExtensions.TryHandleArguments(args, out var datasetName, out var exitCode))
+{
+    Environment.ExitCode = exitCode;
+
+    return;
+}
+
+// configure app
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSerilog(new LoggerConfiguration()
@@ -28,6 +37,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseEmu();
 app.MapHealthChecks("/healthz");
+
+// run
+app.PrepareDataset(datasetName);
 
 await app.TriggerDataStoreRebuild(app.Lifetime.ApplicationStopping);
 await app.RunAsync();

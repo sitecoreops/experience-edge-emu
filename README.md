@@ -21,6 +21,8 @@ Lightweight Sitecore Experience Edge emulator for local (offline) cross-platform
 - Hot reloading data when files in data root is modified.
 - Health endpoint `/healthz`.
 - Docker multi platform images `docker image pull ghcr.io/sitecoreops/eee` (runs on both Windows x64 and Linux x64).
+- Native binaries for Windows x64 and Linux x64.
+- Predefined "skatepark" dataset, use argument `--dataset skatepark`. 
 
 ## Data layout
 
@@ -38,9 +40,9 @@ Under your data root (default `./data`, configured with the `EMU__DATAROOTPATH` 
 
 > 💡TIP: Run a `crawl` mutation to get some data to learn from.
 
-## Crawling preview endpoints (preview context id's or local XM Cloud instances)
+## Crawling preview endpoints (preview context id's or local SitecoreAI CMS instances)
 
-If you want to crawl Experience Edge with *preview** context id's or a local XM Cloud instances, then you will hit a CM server. This requires the following patch to increase the Sitecore GraphQL complexity configuration:
+If you want to crawl Experience Edge with *preview** context id's or a local SitecoreAI CMS instances, then you will hit a CM server. This requires the following patch to increase the Sitecore GraphQL complexity configuration:
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -68,7 +70,7 @@ If you want to crawl Experience Edge with *preview** context id's or a local XM 
 
 Currently there a few limitations/gotchas, some may be fixed in the future:
 
-1. When running `eee` in Docker, you cannot crawl a local XM Cloud instance *unless* they share the same Docker network.
+1. When running `eee` in Docker, you cannot crawl a local SitecoreAI CMS instance *unless* they share the same Docker network.
 1. Using the `maxWidth` and `maxHeight` on `src` property fields does nothing.
 1. `SiteInfo.RoutesResult` only supports the `language` and `first` parameters, `excludedPaths`, `includePaths` and `after` does nothing.
 1. `SiteInfo.DictionaryResult` only supports the `language` and `first` parameters, `after` does nothing.
