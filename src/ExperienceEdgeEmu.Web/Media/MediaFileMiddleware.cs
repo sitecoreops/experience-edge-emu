@@ -5,9 +5,11 @@ namespace ExperienceEdgeEmu.Web.Media;
 
 public class MediaFileMiddleware(RequestDelegate next, EmuFileSystem emuFileSystem, FileExtensionContentTypeProvider fileExtension)
 {
+    private readonly string[] _acceptedPaths = ["/-/media/", "/-/jssmedia/"];
+
     public async Task InvokeAsync(HttpContext context)
     {
-        if (context.Request.Path.Value == null || !context.Request.Path.Value.StartsWith("/-/media/", StringComparison.OrdinalIgnoreCase))
+        if (context.Request.Path.Value == null || !_acceptedPaths.Any(x => context.Request.Path.Value.StartsWith(x, StringComparison.OrdinalIgnoreCase)))
         {
             await next(context);
 

@@ -11,7 +11,7 @@ namespace ExperienceEdgeEmu.Web.EmuSchema;
 public partial class DynamicEmuSchema(EmuSchemaBuilder schemaBuilder, ILogger<DynamicEmuSchema> logger) : ISchema
 {
     private static ISchema? _schema;
-    private readonly object _lock = new();
+    private readonly Lock _lock = new();
 
     private ISchema GetSchema()
     {
@@ -78,9 +78,7 @@ public partial class DynamicEmuSchema(EmuSchemaBuilder schemaBuilder, ILogger<Dy
     public TType GetMetadata<TType>(string key, Func<TType> defaultValueFactory) => GetSchema().GetMetadata<TType>(key, defaultValueFactory.Invoke());
     public bool HasMetadata(string key) => GetSchema().HasMetadata(key);
     public TType GetMetadata<TType>(string key, TType defaultValue) => GetSchema().GetMetadata(key, defaultValue);
-
     public IDictionary<string, object?> Metadata => GetSchema().Metadata;
     public IMetadataReader MetadataReader => throw new NotImplementedException();
-
     Dictionary<string, object?> IProvideMetadata.Metadata => throw new NotImplementedException();
 }

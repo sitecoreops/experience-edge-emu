@@ -3,6 +3,8 @@ namespace ExperienceEdgeEmu.Web.EmuSchema;
 public record SitecoreSiteData(SiteInfoResult AllSiteInfo)
 {
     public SiteInfo? SiteInfo(string site) => AllSiteInfo.Results.FirstOrDefault(x => x.Name.Equals(site, StringComparison.OrdinalIgnoreCase));
+
+    public SiteInfo[] SiteInfoCollection() => AllSiteInfo.Results;
 }
 
 public record SiteInfoResult(int Total, SiteInfo[] Results);
@@ -27,11 +29,6 @@ public class SiteInfo
             if (data == null || data.Dictionary == null)
             {
                 return new SiteDictionary();
-            }
-
-            if (after != null)
-            {
-                throw new NotSupportedException("Dictionary paging not supported.");
             }
 
             if (first != null)
@@ -67,11 +64,6 @@ public class SiteInfo
             if (data == null || data.Routes == null)
             {
                 return new SiteRoutesResult();
-            }
-
-            if (after != null)
-            {
-                throw new NotSupportedException("Routes paging not supported.");
             }
 
             if (first != null)
