@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using System.IO.Compression;
 
 namespace ExperienceEdgeEmu.Web.EmuSchema;
 
@@ -12,8 +13,10 @@ public enum DataCategory
 public class EmuFileSystem
 {
     private readonly string _dataRootPath;
+    private readonly string _datasetLockfilePath;
+    private readonly ILogger<EmuFileSystem> _logger;
 
-    public EmuFileSystem(IHostEnvironment env, IOptions<EmuSettings> options)
+    public EmuFileSystem(IHostEnvironment env, IOptions<EmuSettings> options, ILogger<EmuFileSystem> logger)
     {
         if (Path.IsPathFullyQualified(options.Value.DataRootPath))
         {
@@ -36,6 +39,9 @@ public class EmuFileSystem
 
             File.Move(schemaFilePath, schemaFilePath + ".disabled");
         }
+
+        _datasetLockfilePath = MakeAbsoluteDataPath("dataset.lock");
+        _logger = logger;
     }
 
     public FileSystemWatcher CreateJsonFileWatcher()
@@ -130,5 +136,38 @@ public class EmuFileSystem
                                     .Replace('/', Path.DirectorySeparatorChar);
 
         return Path.Combine(_dataRootPath, "media", relativeMediaPath);
+    }
+
+    public bool HasData() => GetJsonFilePaths().Length > 0 || GetSchemaFilePaths().Length > 0;
+
+    public bool IsDatasetDeployed()
+    {
+        return File.Exists(_datasetLockfilePath);
+    }
+
+    public void DeployDataset(string name)
+    {
+        // cleanup old data
+        DeleteData();
+
+        // unzip from embedded resource
+        var type = typeof(EmuSettings);
+        var resourceName = $"{type.Namespace}.Datasets.{name}.zip";
+
+        using var zipStream = type.Assembly.GetManifestResourceStream(resourceName) ?? throw new InvalidOperationException($"Embedded resource '{resourceName}' not found.");
+
+        ZipFile.ExtractToDirectory(zipStream, _dataRootPath, overwriteFiles: true);
+
+        // write lock file
+        File.WriteAllText(_datasetLockfilePath, name);
+
+        _logger.LogInformation("Deployed dataset: {DatasetName}", name);
+    }
+
+    public void DeleteData()
+    {
+        Directory.Delete(_dataRootPath, recursive: true);
+
+        _logger.LogInformation("Deleted all data in: {DataRootPath}", _dataRootPath);
     }
 }

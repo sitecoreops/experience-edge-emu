@@ -585,6 +585,11 @@
         "resolved": "8.0.0",
         "contentHash": "AurL6Y5BA1WotzlEvVaIDpqzpIPvYnnldxru8oXJU2yFxFUy3+pNXjXd1ymO+RA0rq0+590Q8gaz2l3Sr7fmqg=="
       },
+      "System.CommandLine": {
+        "type": "Transitive",
+        "resolved": "2.0.0",
+        "contentHash": "Bjklzc5NoxqAGFi7BcGlY2TWAdB06Bq3a5sfRr3ubMRU80Mf98eyq3Y2UgR6xRV0TLznZmfe5T7mUjOunRNcdA=="
+      },
       "System.Configuration.ConfigurationManager": {
         "type": "Transitive",
         "resolved": "4.4.1",
@@ -666,7 +671,8 @@
           "GraphQL.Server.All": "[8.3.2, )",
           "Microsoft.Extensions.Http.Resilience": "[9.10.0, )",
           "Serilog.AspNetCore": "[9.0.0, )",
-          "Serilog.Settings.AppSettings": "[3.0.0, )"
+          "Serilog.Settings.AppSettings": "[3.0.0, )",
+          "System.CommandLine": "[2.0.0, )"
         }
       }
     }

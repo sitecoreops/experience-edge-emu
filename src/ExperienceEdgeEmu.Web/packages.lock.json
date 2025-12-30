@@ -89,6 +89,12 @@
           "System.Configuration.ConfigurationManager": "4.4.1"
         }
       },
+      "System.CommandLine": {
+        "type": "Direct",
+        "requested": "[2.0.0, )",
+        "resolved": "2.0.0",
+        "contentHash": "Bjklzc5NoxqAGFi7BcGlY2TWAdB06Bq3a5sfRr3ubMRU80Mf98eyq3Y2UgR6xRV0TLznZmfe5T7mUjOunRNcdA=="
+      },
       "GraphQL": {
         "type": "Transitive",
         "resolved": "8.7.0",
